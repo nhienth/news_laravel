@@ -1,17 +1,32 @@
-<?php 
+<?php
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Category
+class Category extends Model
 {
+    use HasFactory;
+
     public function GetAll() {
-        return DB::table('danh_muc')->get();
+        return DB::table('category')->get();
     }
     
     public function GetById($id) {
-        return DB::table('danh_muc')->where('danhmuc_id', $id)->get();
+        return DB::table('category')->where('category_id', $id)->get();
+    }
+
+    protected $table = 'category';
+    public $primaryKey = 'category_id';
+    protected $fillable = [
+        'category_name',
+    ];
+
+    public $timestamps = false;
+
+    public function posts() {
+        return $this->hasMany(Post::class, 'category_id');
     }
 }
-

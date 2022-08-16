@@ -50,9 +50,14 @@
                         <div class="col-xl-4 col-lg-4 col-md-4">
                             <div class="header-right f-right d-none d-lg-block">
                                 <!-- Heder social -->
-                                <ul class="header-social">    
+                                <ul class="header-social">
+                                    @if (Auth::check())
+                                        <li><a href="">Chào, {{Auth::user()->user_fullname}}</a></li>
+                                        <li><a href="http://127.0.0.1:8000/logout">Đăng xuất</a></li>
+                                    @else
                                     <li><a href="{{route('login')}}">Đăng nhập</a></li>
                                     <li><a href="{{route('register')}}">Đăng ký</a></li>
+                                    @endif
                                 </ul>
                                 <!-- Search Nav -->
                                 <div class="nav-search search-switch">

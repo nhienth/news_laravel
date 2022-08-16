@@ -1,15 +1,15 @@
 <div class="blog_right_sidebar">
                 <aside class="single_sidebar_widget search_widget">
-                  <form action="/timKiem/" method="GET">
+                  <form action="{{url('/search')}}" method="GET">
                     <div class="form-group">
                       <div class="input-group mb-3">
                         <input
                           type="text"
                           name="keyword"
                           class="form-control"
-                          placeholder="Search Keyword"
+                          placeholder="Nhập từ khóa tìm kiếm"
                           onfocus="this.placeholder = ''"
-                          onblur="this.placeholder = 'Search Keyword'"
+                          onblur="this.placeholder = 'Nhập từ khóa tìm kiếm'"
                         />
                         <div class="input-group-append">
                           <button class="btns" type="button">
@@ -22,18 +22,18 @@
                       class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
                       type="submit"
                     >
-                      Search
+                      Tìm kiếm
                     </button>
                   </form>
                 </aside>
                 <aside class="single_sidebar_widget post_category_widget">
                   <h4 class="widget_title">Danh mục tin</h4>
                   <ul class="list cat-list">
-                    @foreach($listCate as $cate)
+                    @foreach($allCate as $cate)
                         <li>
-                        <a href="{{ url('/cat', [$cate->danhmuc_id]) }}" class="d-flex">
-                            <p>{{$cate->danhmuc_ten}}</p>
-                            <p>(28)</p>
+                        <a href="{{ url('/cate', [$cate->category_id]) }}" class="d-flex">
+                            <p>{{$cate->category_name}}</p>
+                            <p>({{$cate->posts->count()}})</p>
                         </a>
                         </li>
                     @endforeach
@@ -41,81 +41,31 @@
                   </ul>
                 </aside>
                 <aside class="single_sidebar_widget popular_post_widget">
-                  <h3 class="widget_title">Recent Post</h3>
-                  <div class="media post_item">
-                    <img src="../assets/img/post/post_1.png" alt="post" />
-                    <div class="media-body">
-                      <a href="single-blog.html">
-                        <h3>From life was you fish...</h3>
-                      </a>
-                      <p>January 12, 2019</p>
+                  <h3 class="widget_title">Bài viết gần đây</h3>
+                  @foreach ($recentPosts as $post)
+                    <div class="media post_item">
+                      <img src="{{asset('assets_admin/img/'.$post->news_img)}}" width="80px" height="80px" alt="post" />
+                      <div class="media-body">
+                        <a href="single-blog.html">
+                          <h3><span>
+                            {{$post->news_title}}
+                          </span></h3>
+                        </a>
+                        <p>{{$post->date_posted->format('d/m/Y')}}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="media post_item">
-                    <img src="../assets/img/post/post_2.png" alt="post" />
-                    <div class="media-body">
-                      <a href="single-blog.html">
-                        <h3>The Amazing Hubble</h3>
-                      </a>
-                      <p>02 Hours ago</p>
-                    </div>
-                  </div>
-                  <div class="media post_item">
-                    <img src="../assets/img/post/post_3.png" alt="post" />
-                    <div class="media-body">
-                      <a href="single-blog.html">
-                        <h3>Astronomy Or Astrology</h3>
-                      </a>
-                      <p>03 Hours ago</p>
-                    </div>
-                  </div>
-                  <div class="media post_item">
-                    <img src="../assets/img/post/post_4.png" alt="post" />
-                    <div class="media-body">
-                      <a href="single-blog.html">
-                        <h3>Asteroids telescope</h3>
-                      </a>
-                      <p>01 Hours ago</p>
-                    </div>
-                  </div>
+                  @endforeach
+                  
                 </aside>
-                <aside class="single_sidebar_widget tag_cloud_widget">
-                  <h4 class="widget_title">Tag Clouds</h4>
-                  <ul class="list">
-                    <li>
-                      <a href="#">project</a>
-                    </li>
-                    <li>
-                      <a href="#">love</a>
-                    </li>
-                    <li>
-                      <a href="#">technology</a>
-                    </li>
-                    <li>
-                      <a href="#">travel</a>
-                    </li>
-                    <li>
-                      <a href="#">restaurant</a>
-                    </li>
-                    <li>
-                      <a href="#">life style</a>
-                    </li>
-                    <li>
-                      <a href="#">design</a>
-                    </li>
-                    <li>
-                      <a href="#">illustration</a>
-                    </li>
-                  </ul>
-                </aside>
+    
                 <aside class="single_sidebar_widget instagram_feeds">
-                  <h4 class="widget_title">Instagram Feeds</h4>
+                  <h4 class="widget_title">Tin Instagram</h4>
                   <ul class="instagram_row flex-wrap">
                     <li>
                       <a href="#">
                         <img
                           class="img-fluid"
-                          src="../assets/img/post/post_5.png"
+                          src="{{asset('assets/img/post/post_5.png')}}"
                           alt=""
                         />
                       </a>
@@ -124,7 +74,7 @@
                       <a href="#">
                         <img
                           class="img-fluid"
-                          src="../assets/img/post/post_6.png"
+                          src="{{asset('assets/img/post/post_6.png')}}"
                           alt=""
                         />
                       </a>
@@ -133,7 +83,7 @@
                       <a href="#">
                         <img
                           class="img-fluid"
-                          src="../assets/img/post/post_7.png"
+                          src="{{asset('assets/img/post/post_7.png')}}"
                           alt=""
                         />
                       </a>
@@ -142,7 +92,7 @@
                       <a href="#">
                         <img
                           class="img-fluid"
-                          src="../assets/img/post/post_8.png"
+                          src="{{asset('assets/img/post/post_8.png')}}"
                           alt=""
                         />
                       </a>
@@ -151,7 +101,7 @@
                       <a href="#">
                         <img
                           class="img-fluid"
-                          src="../assets/img/post/post_9.png"
+                          src="{{asset('assets/img/post/post_9.png')}}"
                           alt=""
                         />
                       </a>
@@ -160,7 +110,7 @@
                       <a href="#">
                         <img
                           class="img-fluid"
-                          src="../assets/img/post/post_10.png"
+                          src="{{asset('assets/img/post/post_10.png')}}"
                           alt=""
                         />
                       </a>
@@ -168,15 +118,15 @@
                   </ul>
                 </aside>
                 <aside class="single_sidebar_widget newsletter_widget">
-                  <h4 class="widget_title">Newsletter</h4>
+                  <h4 class="widget_title">Nhận tin mới</h4>
                   <form action="#">
                     <div class="form-group">
                       <input
                         type="email"
                         class="form-control"
                         onfocus="this.placeholder = ''"
-                        onblur="this.placeholder = 'Enter email'"
-                        placeholder="Enter email"
+                        onblur="this.placeholder = 'Nhập email'"
+                        placeholder="Nhập email"
                         required
                       />
                     </div>
@@ -184,7 +134,7 @@
                       class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
                       type="submit"
                     >
-                      Subscribe
+                      Đăng ký
                     </button>
                   </form>
                 </aside>
