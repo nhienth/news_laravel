@@ -8,7 +8,7 @@
             <div class="blog_left_sidebar">
               <div>
                 @php
-                    echo '<h2>'.$message.'</h2>';
+                  if(isset($message)) echo '<h2>'.$message.'</h2>'; 
                 @endphp
               </div>
             @foreach($allPost as $post)

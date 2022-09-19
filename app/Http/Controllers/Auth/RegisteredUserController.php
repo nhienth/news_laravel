@@ -40,14 +40,18 @@ class RegisteredUserController extends Controller
             'user_fullname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:user'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'user_img' => ['required', 'string', 'max:255'],
         ]);
+
+        $imgpath = $_FILES['user_img']['name'];
+        $target_dir = "../public/assets_admin/img/";
+        $target_file =  $target_dir . basename($imgpath);
+        move_uploaded_file($_FILES['user_img']['tmp_name'], $target_file);
 
         $user = Users::create([
             'user_fullname' => $request->user_fullname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'user_img' => $request->user_img,
+            'user_img' => $imgpath,
             'user_status' => 1,
             'user_rolename' => 'customer',
             'remember_token' => ''

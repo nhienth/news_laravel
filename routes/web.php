@@ -2,13 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\NewController;
-use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\LoaiTinController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CommentController;
 use App\Models\Category;
 
 /*
@@ -50,6 +48,7 @@ Route::prefix('/')->group(function () {
 
     Route::prefix('/post')->group(function () {
         Route::get('/details/{id}', [ClientController::class, 'details']);
+        Route::post('/comment', [ClientController::class, 'comment'])->middleware('auth');
     });
 
 });
@@ -88,6 +87,11 @@ Route::prefix('/admin')->middleware('auth', 'CheckAdmin')->group(function () {
     Route::prefix('/user')->group(function () {
         Route::get('/list', [UserController::class, 'index']);
         Route::post('/update/{id}', [UserController::class, 'update']);
+    });
+
+    Route::prefix('/comment')->group(function () {
+        Route::get('/list', [CommentController::class, 'index']);
+        Route::post('/update/{id}', [CommentController::class, 'update']);
     });
 });
 

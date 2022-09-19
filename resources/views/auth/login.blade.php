@@ -1,59 +1,98 @@
-@extends('layout')
-@section('main')
-    
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            {{-- <a href="/"><img src="{{asset('assets/img/logo/logo.png')}}" alt=""></a> --}}
-        </x-slot>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>NEWS - Đăng nhập</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/img/favicon.ico')}}">
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+	<link rel="stylesheet" type="text/css" href="{{asset('assets/Login_v1/vendor/bootstrap/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('assets/Login_v1/fonts/font-awesome-4.7.0/css/font-awesome.min.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('assets/Login_v1/vendor/animate/animate.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('assets/Login_v1/vendor/css-hamburgers/hamburgers.min.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('assets/Login_v1/vendor/select2/select2.min.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('assets/Login_v1/css/util.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('assets/Login_v1/css/main.css')}}">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="{{asset('assets/Login_v1/images/img-01.png')}}" alt="IMG">
+				</div>
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                <!-- Session Status -->
+                <x-auth-session-status class="mb-4" :status="session('status')" />
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
 
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Địa chỉ mail')" />
+				<form class="login100-form validate-form" action="{{ route('login') }}" method="POST">
+                    @csrf
+					<span class="login100-form-title">
+						<h3>ĐĂNG NHẬP</h3> 
+					</span>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
+                    <!-- Validation Errors -->
+                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Mật khẩu')" />
+					<div style="margin-bottom : 20px" class="wrap-input100 validate-input" data-validate = "Vui lòng nhập email">
+						<input class="input100" type="text" name="email" :value="old('email')" placeholder="Email" required autofocus>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
 
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
-            </div>
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="password" name="password" data-validate = "Vui lòng nhập mật khẩu" placeholder="Mật khẩu" required autocomplete="current-password">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Đăng nhập
+						</button>
+					</div>
 
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Ghi nhớ') }}</span>
-                </label>
-            </div>
+					<div class="text-center p-t-12">
+						<span class="txt1">
+							Bạn quên 
+						</span>
+						<a class="txt2" href="{{ route('password.request') }}">
+							mật khẩu ?
+						</a>
+					</div>
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Bạn quên mật khẩu?') }}
-                    </a>
-                @endif
+					<div class="text-center p-t-136">
+						<a class="txt2" href="http://127.0.0.1:8000/register">
+							Tạo tài khoản mới
+							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
 
-                <x-button class="ml-3">
-                    {{ __('Đăng nhập') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
-@endsection
+	
+	<script src="{{asset('assets/Login_v1/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
+	<script src="{{asset('assets/Login_v1/vendor/bootstrap/js/popper.js')}}"></script>
+	<script src="{{asset('assets/Login_v1/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+	<script src="{{asset('assets/Login_v1/vendor/select2/select2.min.js')}}"></script>
+	<script src="{{asset('assets/Login_v1/vendor/tilt/tilt.jquery.min.js')}}"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+	<script src="{{asset('assets/Login_v1/js/main.js')}}"></script>
 
+</body>
+</html>

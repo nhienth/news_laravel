@@ -6,6 +6,7 @@ use Validator;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Comment;
 
 use Illuminate\Http\Request;
 
@@ -33,12 +34,12 @@ class ClientController extends Controller
 
         $postMostRecentDetails = Post::with(['user', 'category'])
             ->where('news.news_status', '1')
-            ->orderBy('news.date_posted', 'desc')
+            ->orderBy('news.news_id', 'desc')
             ->first();
 
         $postMostRecentSingle = Post::with(['user', 'category'])
             ->where('news.news_status', '1')
-            ->orderBy('news.date_posted', 'desc')
+            ->orderBy('news.news_id', 'desc')
             ->take(2)
             ->get();
 
@@ -71,7 +72,7 @@ class ClientController extends Controller
             ->get();
         $recentPosts = Post::with(['user', 'category'])
             ->where('news.news_status', '1')
-            ->orderBy('news.date_posted', 'desc')
+            ->orderBy('news.news_id', 'desc')
             ->take(5)
             ->get();
         $allPost = Post::with(['user', 'category'])
@@ -104,7 +105,7 @@ class ClientController extends Controller
         
         $recentPosts = Post::with(['user', 'category'])
             ->where('news.news_status', '1')
-            ->orderBy('news.date_posted', 'desc')
+            ->orderBy('news.news_id', 'desc')
             ->take(5)
             ->get();
 
@@ -131,11 +132,27 @@ class ClientController extends Controller
 
         $recentPosts = Post::with(['user', 'category'])
             ->where('news.news_status', '1')
-            ->orderBy('news.date_posted', 'desc')
+            ->orderBy('news.news_id', 'desc')
             ->take(5)
             ->get();
 
-        return view('details', compact(['post', 'allCate', 'recentPosts', 'postTrendingTop']));
+        $allComments = Comment::with(['user', 'post'])
+            ->where('comment.news_id', $id)
+            ->where('comment.comment_status', '1')
+            ->orderBy('comment.comment_date', 'desc')
+            ->get();
+
+        return view('details', compact(['post', 'allCate', 'recentPosts', 'postTrendingTop', 'allComments']));
+    }
+
+    public function comment() {
+        $comment = new Comment;
+        $news_id = $_POST['news_id'];
+        $comment->comment_content = $_POST['comment_content'];
+        $comment->news_id = $news_id;
+        $comment->user_id = Auth::user()->user_id;
+        $comment->save();
+        return redirect('/post/details/'.$news_id);
     }
 
     

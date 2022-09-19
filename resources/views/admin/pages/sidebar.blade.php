@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="navbar-nav w-100">
-            <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Bảng điều khiển</a>
+            <a href="{{url('/admin')}}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Bảng điều khiển</a>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-list-alt"></i>Danh mục</a>
                 <div class="dropdown-menu bg-transparent border-0">
@@ -30,9 +30,8 @@
                 </div>
             </div>
             <a href="{{url('/admin/user/list')}}" class="nav-item nav-link"><i class="fas fa-user-circle"></i>Tài khoản</a>
-            <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
-            <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
-            <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+            <a href="{{url('/admin/comment/list')}}" class="nav-item nav-link"><i class="fas fa-comments"></i>Bình luận</a>
+            
         </div>
     </nav>
 </div>
